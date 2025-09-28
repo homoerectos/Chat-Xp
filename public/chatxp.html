@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatXp - Conversa</title>
+    <link rel="stylesheet" href="chatxp.css">
+    <link rel="shortcut icon" href="image/chatxp.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="center">
+        <div class="xp-window">
+            <div class="title-bar">
+                <span class="title">Sala de Chat</span>
+                <button class="close-btn">X</button>
+            </div>
+            <div class="content">
+                <img src="image/chatxp.ico" alt="msn" width="50px" height="50px">
+                <h2 class="xp-3d">Conversa</h2>
+                <p id="welcome"></p>
+
+                <div class="messages" id="messages"></div>
+
+                <input id="msgInput" type="text" placeholder="Digite sua mensagem...">
+                
+                <div id="gifs">
+                    <img src="https://media.tenor.com/Z6IiHJLUj_0AAAAi/platicaschistosaslaugh-laugh.gif" width="50" height="50" onclick="sendGif(this.src)">
+                    <img src="https://media.tenor.com/hK08mKUEvdMAAAAi/essa-ttv.gif" width="80" height="50" onclick="sendGif(this.src)">
+                    <img src="https://media.tenor.com/fPyk4O-bFGYAAAAi/ezdzzz.gif" 
+                    width="50" height="50" onclick="sendGif(this.src)">
+                </div>
+
+                <button id="sendBtn" class="btn">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="chat.js"></script>
+    <script src="special.js"></script>
+</body>
+</html>

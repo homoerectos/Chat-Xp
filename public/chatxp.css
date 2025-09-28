@@ -1,0 +1,168 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(https://www.sleek-mag.com/wp-content/uploads/2023/09/Photo-by-Charles-ORear-%C2%A9-Used-with-permission-from-Microsoft-768x480.jpeg?v=1695037748);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: rgb(245, 245, 245);
+    text-shadow: black 1.5px 1.5px 2px;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+h2{
+    color: red;
+}
+
+a {
+    text-decoration: none;
+    color: darkred;
+}
+
+button {
+    position: relative;
+    overflow: hidden;
+    width: 100px;
+    height: 70px;
+    background-color: rgb(138, 255, 127);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: large;
+    box-shadow: black 1.5px 1.5px 2px;
+    z-index: 0;
+    transition: transform 0.3s ease;
+}
+
+.size:hover {
+    transform: scale(1.1);
+}
+
+/* Brilho animado */
+button::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    transform: rotate(25deg);
+    animation: shine 1.5s linear infinite;
+    z-index: 1;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) rotate(25deg);
+    }
+    100% {
+        transform: translateX(400%) rotate(25deg);
+    }
+}
+
+/* Faz o texto aparecer por cima do brilho */
+button span {
+    position: relative;
+    z-index: 2;
+}
+.center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.special {
+    color: red;
+    display: inline-block;
+}
+.special span {
+    display: inline-block;
+    animation: glitch 0.3s infinite;
+    white-space: pre
+}
+@keyframes glitch {
+    0%, 100% { transform: translate(1px, 1px); }
+    25% { transform: translate(-1px, -1px); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(-1px, 1px); }
+}
+
+.xp-window {
+    width: 600px;
+    height: 800px;
+    border: 2px solid #000080;
+    border-radius: 5px;
+    background: #c0c0c0;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+/* Barra de título */
+.title-bar {
+    background: linear-gradient(to right, #000080, #0000ff);
+    color: white;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* Botão de fechar */
+.close-btn {
+    background: #ff0000;
+    border: 1px solid #800000;
+    color: white;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 2px;
+}
+
+/* Conteúdo da janela */
+.content {
+    padding: 20px;
+    text-align: center;
+    background: #c0c0c0;
+    overflow-y: scroll;
+}
+
+.xp-3d {
+    font-size: 30px;
+    font-weight: bold;
+    color: red;
+    text-transform: uppercase;
+    animation: rotate3D 5s linear infinite;
+    transform-style: preserve-3d;
+    perspective: 800px;
+    text-shadow: 1px 1px 0 #000, 2px 2px 0 #222, 3px 3px 0 #444;
+}
+
+@keyframes rotate3D {
+    0%   { transform: rotateY(0deg) rotateX(0deg); }
+    25%  { transform: rotateY(90deg) rotateX(10deg); }
+    50%  { transform: rotateY(180deg) rotateX(0deg); }
+    75%  { transform: rotateY(270deg) rotateX(-10deg); }
+    100% { transform: rotateY(360deg) rotateX(0deg); }
+}
+
+input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+    width: 80%;
+    margin-bottom: 10px;
+    border: 1px solid #000080;
+    border-radius: 3px;
+}
