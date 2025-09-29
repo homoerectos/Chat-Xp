@@ -97,13 +97,11 @@ button span {
 }
 
 .xp-window {
-    width: 600px;
-    height: 800px;
+    width: 400px;
     border: 2px solid #000080;
     border-radius: 5px;
     background: #c0c0c0;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-    overflow: hidden;
 }
 
 /* Barra de título */
@@ -136,7 +134,6 @@ button span {
     padding: 20px;
     text-align: center;
     background: #c0c0c0;
-    overflow-y: scroll;
 }
 
 .xp-3d {
