@@ -1,17 +1,22 @@
+// Pega o nome do jogador do localStorage
+const playerName = localStorage.getItem('playerName') || "Desconhecido";
+
+// Atualiza o texto de boas-vindas
+document.getElementById('welcome').textContent = `Olá, ${playerName}! Comece a conversar.`;
+
+// Conecta ao socket
 const socket = io();
 
 socket.on('connect', () => {
     socket.emit('join', playerName);
 });
 
-const playerName = localStorage.getItem('playerName') || "Desconhecido";
-document.getElementById('welcome').textContent = `Olá, ${playerName}! Comece a conversar.`;
-
-
+// Elementos DOM
 const messages = document.getElementById('messages');
 const msgInput = document.getElementById('msgInput');
 const sendBtn = document.getElementById('sendBtn');
 
+// Enviar mensagem
 sendBtn.addEventListener('click', sendMessage);
 msgInput.addEventListener('keydown', e => { if(e.key==='Enter') sendMessage(); });
 
@@ -24,22 +29,22 @@ function stringToColor(str){
 }
 
 function sendMessage() {
-  const msg = msgInput.value.trim();
-  if (!msg) return;
+    const msg = msgInput.value.trim();
+    if (!msg) return;
 
-  socket.emit('chat message', { name: playerName, msg });
-  msgInput.value = '';
+    socket.emit('chat message', { name: playerName, msg });
+    msgInput.value = '';
 }
 
-// Aqui o servidor manda a mensagem pra todos, incluindo você
+// Receber mensagem do servidor
 socket.on('chat message', data => {
-  const div = document.createElement('div');
-  div.innerHTML = `<b style="color:${stringToColor(data.name)}">${data.name}</b>: ${data.msg}`;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
+    const div = document.createElement('div');
+    div.innerHTML = `<b style="color:${stringToColor(data.name)}">${data.name}</b>: ${data.msg}`;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
 });
 
-// para enviar GIFs
+// Enviar GIF
 function sendGif(src) {
     const hora = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     socket.emit('chat message', { name: playerName, msg: `<img src="${src}" width="80">`, time: hora });
