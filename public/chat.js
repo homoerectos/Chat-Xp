@@ -1,22 +1,21 @@
-// Conecta ao socket
+const playerName = localStorage.getItem('playerName') || "Desconhecido";
+document.getElementById('welcome').textContent = `Olá, ${playerName}! Comece a conversar.`;
+
 const socket = io();
 
+// ⬅️ Flag para garantir que a conexão está pronta
+let connected = false;
+
 socket.on('connect', () => {
+    connected = true;
     socket.emit('join', playerName);
 });
-
-// Pega o nome do jogador do localStorage
-const playerName = localStorage.getItem('playerName') || "Desconhecido";
-
-// Atualiza o texto de boas-vindas
-document.getElementById('welcome').textContent = `Olá, ${playerName}! Comece a conversar.`;
 
 // Elementos DOM
 const messages = document.getElementById('messages');
 const msgInput = document.getElementById('msgInput');
 const sendBtn = document.getElementById('sendBtn');
 
-// Enviar mensagem
 sendBtn.addEventListener('click', sendMessage);
 msgInput.addEventListener('keydown', e => { if(e.key==='Enter') sendMessage(); });
 
@@ -32,11 +31,16 @@ function sendMessage() {
     const msg = msgInput.value.trim();
     if (!msg) return;
 
+    if (!connected) {
+        alert('Conexão com o servidor não estabelecida!');
+        return;
+    }
+
     socket.emit('chat message', { name: playerName, msg });
     msgInput.value = '';
 }
 
-// Receber mensagem do servidor
+// Receber mensagens
 socket.on('chat message', data => {
     const div = document.createElement('div');
     div.innerHTML = `<b style="color:${stringToColor(data.name)}">${data.name}</b>: ${data.msg}`;
@@ -47,5 +51,6 @@ socket.on('chat message', data => {
 // Enviar GIF
 function sendGif(src) {
     const hora = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    if (!connected) return;
     socket.emit('chat message', { name: playerName, msg: `<img src="${src}" width="80">`, time: hora });
 }
