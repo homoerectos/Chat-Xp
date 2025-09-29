@@ -1,15 +1,15 @@
-// Pega o nome do jogador do localStorage
-const playerName = localStorage.getItem('playerName') || "Desconhecido";
-
-// Atualiza o texto de boas-vindas
-document.getElementById('welcome').textContent = `Olá, ${playerName}! Comece a conversar.`;
-
 // Conecta ao socket
 const socket = io();
 
 socket.on('connect', () => {
     socket.emit('join', playerName);
 });
+
+// Pega o nome do jogador do localStorage
+const playerName = localStorage.getItem('playerName') || "Desconhecido";
+
+// Atualiza o texto de boas-vindas
+document.getElementById('welcome').textContent = `Olá, ${playerName}! Comece a conversar.`;
 
 // Elementos DOM
 const messages = document.getElementById('messages');
