@@ -1,18 +1,16 @@
 const playerName = localStorage.getItem('playerName') || "Desconhecido";
-document.getElementById('welcome').textContent = `Olá, ${playerName}! Comece a conversar.`;
+document.getElementById('welcome').textContent = `Olá, ${playerName}! Comece a conversar 😊`;
 
-// Pega o servidor da sala
+// Pega o servidor correto da sala
 const serverPath = document.body.dataset.server;
 const socket = io({ path: serverPath });
 
-// Flag de conexão
 let connected = false;
 socket.on('connect', () => {
     connected = true;
     socket.emit('join', playerName);
 });
 
-// Elementos DOM
 const messages = document.getElementById('messages');
 const msgInput = document.getElementById('msgInput');
 const sendBtn = document.getElementById('sendBtn');
@@ -25,12 +23,14 @@ function sendMessage() {
     if (!msg) return;
     if (!connected) { alert("Ainda não conectado!"); return; }
 
-    socket.emit('chat message', { name: playerName, msg });
+    // Mantém emojis e GIFs
+    socket.emit('chat message', { name: playerName, msg: msg });
     msgInput.value = '';
 }
 
 socket.on('chat message', data => {
     const div = document.createElement('div');
+    // ⬅️ innerHTML permite emojis e GIFs
     div.innerHTML = `<b style="color:${stringToColor(data.name)}">${data.name}</b>: ${data.msg}`;
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
