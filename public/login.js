@@ -1,28 +1,32 @@
 const startBtn = document.getElementById('startBtn');
 
 startBtn.addEventListener('click', () => {
-  const nameInput = document.getElementById('playerName').value.trim();
-  const keyInput = document.getElementById('serverKey').value.trim();
+    const nameInput = document.getElementById('playerName').value.trim();
+    const keyInput = document.getElementById('serverKey').value.trim();
 
-  if (!nameInput) { 
-    alert('Digite um nome válido!'); 
-    return; 
-  }
-  if (!keyInput) { 
-    alert('Digite a chave do servidor!'); 
-    return; 
-  }
+    if (!nameInput) { 
+        alert('Digite um nome válido!'); 
+        return; 
+    }
+    if (!keyInput) { 
+        alert('Digite a chave do servidor!'); 
+        return; 
+    }
 
-  localStorage.setItem('playerName', nameInput);
+    localStorage.setItem('playerName', nameInput);
 
-  // 🔹 Validação das chaves
-  if (keyInput === "BSL123") {
-    window.location.href = 'chat1.html';
-  } else if (keyInput === "BAK123") {
-    window.location.href = 'chat2.html';
-  } else if (keyInput === "BPG123") {
-    window.location.href = 'chat3.html';
-  } else {
-    alert("Chave inválida! Tente novamente.");
-  }
+    // 🔹 Redireciona para a sala correta
+    switch(keyInput) {
+        case "BSL123":
+            window.location.href = 'chat1.html';
+            break;
+        case "BAK123":
+            window.location.href = 'chat2.html';
+            break;
+        case "BPG123":
+            window.location.href = 'chat3.html';
+            break;
+        default:
+            alert("Chave inválida! Tente novamente.");
+    }
 });
